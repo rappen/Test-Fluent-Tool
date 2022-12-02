@@ -205,7 +205,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyPlugin.cs" />
+    <Compile Include="TestFluentToolPlugin.cs" />
     <Compile Include="TestFluentTool.cs">
       <SubType>UserControl</SubType>
     </Compile>

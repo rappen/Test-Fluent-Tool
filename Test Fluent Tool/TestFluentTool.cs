@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using MscrmTools.FluentQueryExpressions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
@@ -9,6 +11,8 @@ namespace Test_Fluent_Tool
 {
     public partial class TestFluentTool : PluginControlBase
     {
+        private Query flqe;
+
         public TestFluentTool()
         {
             InitializeComponent();
@@ -16,40 +20,12 @@ namespace Test_Fluent_Tool
 
         private void MyPluginControl_Load(object sender, EventArgs e)
         {
-        }
-
-        private void GetAccounts()
-        {
-            var flqe = new MscrmTools.FluentQueryExpressions.Query("account")
+            flqe = new Query("account")
                 .Select("name")
                 .Where("name", ConditionOperator.Equal, "gfgf");
-            WorkAsync(new WorkAsyncInfo
-            {
-                Message = "Getting accounts",
-                Work = (worker, args) =>
-                {
-                    args.Result = flqe.GetAll(Service);
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    PostHandling(args);
-                    WorkAsync(new WorkAsyncInfo
-                    {
-                        Message = "Getting first",
-                        Work = (worker, args2) =>
-                        {
-                            args2.Result = flqe.GetFirstOrDefault(Service);
-                        },
-                        PostWorkCallBack = (args2) =>
-                        {
-                            PostHandling(args2);
-                        }
-                    });
-                }
-            });
         }
 
-        private void PostHandling(System.ComponentModel.RunWorkerCompletedEventArgs args)
+        private void PostHandling(RunWorkerCompletedEventArgs args)
         {
             if (args.Error != null)
             {
@@ -75,7 +51,28 @@ namespace Test_Fluent_Tool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ExecuteMethod(GetAccounts);
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Getting accounts",
+                Work = (worker, args) =>
+                {
+                    args.Result = flqe.GetAll(Service);
+                },
+                PostWorkCallBack = PostHandling
+            });
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Getting first",
+                Work = (worker, args) =>
+                {
+                    args.Result = flqe.GetFirstOrDefault(Service);
+                },
+                PostWorkCallBack = PostHandling
+            });
         }
     }
 }
