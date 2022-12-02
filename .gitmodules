@@ -1,0 +1,3 @@
+[submodule "MscrmTools.FluentQueryExpressions"]
+	path = MscrmTools.FluentQueryExpressions
+	url = https://github.com/MscrmTools/MscrmTools.FluentQueryExpressions

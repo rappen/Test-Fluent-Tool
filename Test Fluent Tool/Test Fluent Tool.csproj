@@ -206,11 +206,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyPlugin.cs" />
-    <Compile Include="MyPluginControl.cs">
+    <Compile Include="TestFluentTool.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MyPluginControl.designer.cs">
-      <DependentUpon>MyPluginControl.cs</DependentUpon>
+    <Compile Include="TestFluentTool.designer.cs">
+      <DependentUpon>TestFluentTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
@@ -220,10 +220,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyPluginControl.resx">
-      <DependentUpon>MyPluginControl.cs</DependentUpon>
+    <EmbeddedResource Include="TestFluentTool.resx">
+      <DependentUpon>TestFluentTool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <Import Project="..\MscrmTools.FluentQueryExpressions\MscrmTools.Shared\MscrmTools.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF $(ConfigurationName) == Debug (

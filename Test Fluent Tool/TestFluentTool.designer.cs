@@ -1,6 +1,6 @@
 ﻿namespace Test_Fluent_Tool
 {
-    partial class MyPluginControl
+    partial class TestFluentTool
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.
